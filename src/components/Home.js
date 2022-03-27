@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const DivContainer = styled.div`
-  width: 411px;
+  width: 100%;
   height: 100vh;
   background-color: #7f5af0;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  @media (min-width: 550px) {
+  @media (min-width: 623px) {
     width: 100%;
     height: 100vh;
   }
