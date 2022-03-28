@@ -7,6 +7,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const DivNavBar = styled.div`
@@ -39,19 +40,24 @@ const DivIconos = styled.div`
 const NavBar = () => {
   return (
     <DivNavBar>
-      <DivIconos>
-        <FontAwesomeIcon icon={faHouse} />
-        <span>Home</span>
-      </DivIconos>
-      <DivIconos>
-        <FontAwesomeIcon icon={faWaveSquare} />
-
-        <span>Estadisticas</span>
-      </DivIconos>
-      <DivIconos>
-        <FontAwesomeIcon icon={faUser} />
-        <span>Perfil</span>
-      </DivIconos>
+      <Link to='/categorias'>
+        <DivIconos>
+          <FontAwesomeIcon icon={faHouse} />
+          <span>Home</span>
+        </DivIconos>
+      </Link>
+      <Link to='/estadisticas'>
+        <DivIconos>
+          <FontAwesomeIcon icon={faWaveSquare} />
+          <span>Estadisticas</span>
+        </DivIconos>
+      </Link>
+      <Link to='/perfil'>
+        <DivIconos>
+          <FontAwesomeIcon icon={faUser} />
+          <span>Perfil</span>
+        </DivIconos>
+      </Link>
     </DivNavBar>
   );
 };
