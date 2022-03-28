@@ -5,11 +5,12 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import React from 'react';
 import styled from 'styled-components';
 
 const DivNavBar = styled.div`
-  border: solid 1px red;
+  /* border: solid 1px red; */
   display: flex;
   position: absolute;
   width: 411px;

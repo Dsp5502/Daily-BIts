@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import NavBar from './NavBar';
 
 const DivContainerCategorias = styled.div`
-  border: solid 1px red;
+  /* border: solid 1px red; */
   width: 411px;
   height: 95vh;
   background-color: black;
@@ -37,12 +37,37 @@ const DivTitle = styled.div`
 `;
 
 const DivLogos = styled.div`
+  width: 220px;
+  height: 80vh;
+  /* border: 1px solid red; */
   display: flex;
   flex-wrap: wrap-reverse;
   justify-content: center;
   align-items: center;
-  margin: 10px 100px;
-  padding: 30px 20px;
+  margin: 0px 100px;
+  padding: 0px 20px;
+`;
+
+const DivlogoSelec = styled.div`
+  /* border: 1px solid red; */
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  margin: 0 auto;
+`;
+
+const ImgLogo = styled.img`
+  margin: 0 auto;
+  cursor: pointer;
+`;
+
+const TitleLogo = styled.h5`
+  color: #fffffe;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  letter-spacing: 0.005em;
 `;
 
 const Categorias = () => {
@@ -52,29 +77,41 @@ const Categorias = () => {
         <p>Practica tus conocimientos en la categoría que prefieras.</p>
       </DivTitle>
       <DivLogos>
-        <div>
-          <img
+        <DivlogoSelec>
+          <ImgLogo
             src='https://res.cloudinary.com/djjgtili7/image/upload/v1648435350/dailyBits/images/Ellipse_2_avq8da.png'
             alt='figma'
           />
-          <h5>UX</h5>
-        </div>
-        <img
-          src='https://res.cloudinary.com/djjgtili7/image/upload/v1648435350/dailyBits/images/Elzlipse_2_xiwmj1.png'
-          alt='ux'
-        />
-        <img
-          src='https://res.cloudinary.com/djjgtili7/image/upload/v1648435350/dailyBits/images/Ellipse_ni6pz6.png'
-          alt='css'
-        />
-        <img
-          src='https://res.cloudinary.com/djjgtili7/image/upload/v1648435350/dailyBits/images/Ellipse_4_q9mest.png'
-          alt='js'
-        />
-        <img
-          src='https://res.cloudinary.com/djjgtili7/image/upload/v1648435350/dailyBits/images/Ellipse_9_yqvk4a.png'
-          alt='html'
-        />
+          <TitleLogo>Figma</TitleLogo>
+        </DivlogoSelec>
+        <DivlogoSelec>
+          <ImgLogo
+            src='https://res.cloudinary.com/djjgtili7/image/upload/v1648435350/dailyBits/images/Elzlipse_2_xiwmj1.png'
+            alt='ux'
+          />
+          <TitleLogo>UX</TitleLogo>
+        </DivlogoSelec>
+        <DivlogoSelec>
+          <ImgLogo
+            src='https://res.cloudinary.com/djjgtili7/image/upload/v1648435350/dailyBits/images/Ellipse_ni6pz6.png'
+            alt='css'
+          />
+          <TitleLogo>CSS</TitleLogo>
+        </DivlogoSelec>
+        <DivlogoSelec>
+          <ImgLogo
+            src='https://res.cloudinary.com/djjgtili7/image/upload/v1648435350/dailyBits/images/Ellipse_4_q9mest.png'
+            alt='js'
+          />
+          <TitleLogo>JS</TitleLogo>
+        </DivlogoSelec>
+        <DivlogoSelec>
+          <ImgLogo
+            src='https://res.cloudinary.com/djjgtili7/image/upload/v1648435350/dailyBits/images/Ellipse_9_yqvk4a.png'
+            alt='html'
+          />
+          <TitleLogo>HTML</TitleLogo>
+        </DivlogoSelec>
       </DivLogos>
       <NavBar />
     </DivContainerCategorias>
