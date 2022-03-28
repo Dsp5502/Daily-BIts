@@ -1,5 +1,8 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { urlBD } from './helpers/url';
 
 const DivContainerRegistro = styled.div`
   width: 411px;
@@ -62,6 +65,18 @@ const BtnGoogle = styled.button`
     background-color: #eb163e;
   }
 `;
+const BtnAcceso = styled.button`
+  background-color: #2cb67d;
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 16px;
+  &:hover {
+    background-color: #228d61;
+  }
+`;
 const FormCorreo = styled.form`
   display: flex;
   flex-direction: column;
@@ -116,6 +131,58 @@ const SpanInscribirse = styled.span`
 `;
 
 const Registro = () => {
+  const [userBD, setUserBD] = useState();
+  const [usuario, setUsuario] = useState({
+    correo: '',
+    isAdd: false,
+  });
+
+  console.log(userBD);
+
+  const getData = () => {
+    axios
+      .get(urlBD)
+      .then((resp) => {
+        setUserBD(resp.data);
+        console.log(resp.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const { isAdd, correo } = usuario;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    usuarioExiste(usuario.correo.toString());
+    console.log(usuario.correo.toString());
+  };
+
+  const usuarioExiste = (correoIngresado) => {
+    const resultadoBusqueda = userBD.find((el) =>
+      el.correo.toString().toLowerCase().includes(correoIngresado.toLowerCase())
+    );
+    if (resultadoBusqueda.correo === usuario.correo.toString()) {
+      console.log('existe');
+      setUsuario({
+        isAdd: true,
+      });
+    } else {
+    }
+    console.log(resultadoBusqueda);
+  };
+
+  const handleChange = ({ target }) => {
+    setUsuario({
+      ...usuario,
+      [target.name]: [target.value],
+    });
+    console.log(target.value);
+  };
+
   return (
     <DivContainerRegistro>
       <DivImgPrincipal>
@@ -126,11 +193,24 @@ const Registro = () => {
       </DivImgPrincipal>
       <DivLogin>
         <Titulo>Iniciar sesión</Titulo>
-        <BtnGoogle>Continuar con Google</BtnGoogle>
-        <FormCorreo>
+        <BtnGoogle>
+          <Link to='/categorias'>Continuar con Google</Link>
+        </BtnGoogle>
+        <FormCorreo onSubmit={handleSubmit}>
           <LabelForm htmlFor=''>Correo electrónico</LabelForm>
-          <InputForm type='text' placeholder='Ingrese su correo Electronico' />
+          <InputForm
+            name='correo'
+            type='text'
+            value={correo}
+            placeholder='Ingrese su correo Electronico'
+            onChange={handleChange}
+          />
         </FormCorreo>
+        {isAdd && (
+          <BtnAcceso>
+            <Link to='/categorias'>Empieza a Jugar</Link>
+          </BtnAcceso>
+        )}
         <SpanOlvido>¿Se te olvidó tu contraseña?</SpanOlvido>
         <PInscribirse>
           ¿Aún no tienes una cuenta?{' '}
