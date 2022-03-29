@@ -131,7 +131,7 @@ const SpanInscribirse = styled.span`
   }
 `;
 
-const Registro = () => {
+const Registro = ({ setUsuarioSeleccionado }) => {
   const [userBD, setUserBD] = useState();
   const [usuario, setUsuario] = useState({
     correo: '',
@@ -174,6 +174,7 @@ const Registro = () => {
     } else {
     }
     console.log(resultadoBusqueda);
+    setUsuarioSeleccionado(resultadoBusqueda);
   };
 
   const handleChange = ({ target }) => {

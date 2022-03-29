@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import NavBar from './NavBar';
 
@@ -31,7 +32,7 @@ const DivTitle = styled.div`
   text-align: center;
   letter-spacing: 0.0015em;
   @media (min-width: 623px) {
-    width: 600px;
+    width: 300px;
     height: 90;
   }
 `;
@@ -45,7 +46,7 @@ const DivLogos = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0px 100px;
-  padding: 0px 20px;
+  padding: 30px 20px;
 `;
 
 const DivlogoSelec = styled.div`
@@ -105,13 +106,15 @@ const Categorias = () => {
           />
           <TitleLogo>JS</TitleLogo>
         </DivlogoSelec>
-        <DivlogoSelec>
-          <ImgLogo
-            src='https://res.cloudinary.com/djjgtili7/image/upload/v1648435350/dailyBits/images/Ellipse_9_yqvk4a.png'
-            alt='html'
-          />
-          <TitleLogo>HTML</TitleLogo>
-        </DivlogoSelec>
+        <Link to='/preguntaHtml'>
+          <DivlogoSelec>
+            <ImgLogo
+              src='https://res.cloudinary.com/djjgtili7/image/upload/v1648435350/dailyBits/images/Ellipse_9_yqvk4a.png'
+              alt='html'
+            />
+            <TitleLogo>HTML</TitleLogo>
+          </DivlogoSelec>
+        </Link>
       </DivLogos>
       <NavBar />
     </DivContainerCategorias>
