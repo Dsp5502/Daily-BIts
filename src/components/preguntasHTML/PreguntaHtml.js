@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import preguntasDaily from '../../data/dbQuestion';
 import '../../eventos.css';
+import { urlBD } from '../helpers/url';
 
 const DivContainerCategorias = styled.div`
   /* border: solid 1px red; */
@@ -80,7 +81,7 @@ const DivPregunta = styled.div`
 const FormOpciones = styled.form`
   width: 360px;
   height: 248px;
-  border: solid 1px red;
+  /* border: solid 1px red; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -118,7 +119,7 @@ const DivBotonComp = styled.div`
   padding: 16px;
   width: 360px;
   height: 82px;
-  border: solid 1px red;
+  /* border: solid 1px red; */
   cursor: pointer;
 `;
 
@@ -136,42 +137,121 @@ const BtnComprobar = styled.button`
   letter-spacing: 0.0125em;
   color: white;
   cursor: pointer;
+  &:hover {
+    background: #7f7991;
+  }
 `;
 
-const PreguntaHtml = () => {
-  const [preguntas, setPreguntas] = useState([]);
+const JuegoFinalizado = styled.div`
+  /* border: solid 1px red; */
+  width: 411px;
+  height: 98vh;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  margin: 0 auto;
+`;
+const JugarDeNuevo = styled.button`
+  background-color: rgb(44, 182, 125);
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 16px;
+  &:hover {
+    background-color: #eb163e;
+  }
+`;
+
+const PreguntaHtml = ({ setUsuarioSeleccionado, usuarioSeleccionado }) => {
   const [preguntaActual, setPreguntaActual] = useState(0);
   const [puntuacion, setPuntuacion] = useState(0);
-  const [finalizado, setFinalizado] = useState(true);
-  const [numVidas, setNumVidas] = useState(4);
+  const [finalizado, setFinalizado] = useState(false);
+  const [numVidas, setNumVidas] = useState(2);
   const [answerSelect, setAnswerSelect] = useState('');
+  const [incorrectas, setIncorrectas] = useState(0);
+  const [contestadas, setContestadas] = useState(0);
+
+  console.log(usuarioSeleccionado.id);
 
   const handleChange = ({ target }) => {
     console.log(target.value);
-
     setAnswerSelect(target.value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(answerSelect);
+    setContestadas(contestadas + 1);
+    if (preguntaActual === preguntasDaily.length - 1) {
+      setFinalizado(true);
+    } else {
+      setPreguntaActual(preguntaActual + 1);
+    }
   };
 
   const comprobar = () => {
-    alert('ganaste');
-    setPreguntaActual(preguntaActual + 1);
-    if (answerSelect === preguntasDaily[preguntaActual].respuesta) {
-      setPuntuacion(puntuacion + 1);
-      setAnswerSelect('');
-    } else {
-      setNumVidas(numVidas - 1);
-      setAnswerSelect('');
-    }
-    if (preguntaActual === preguntas.length - 1) {
+    if (numVidas === 1) {
+      alert('Perdiste');
       setFinalizado(true);
+    } else {
+      if (answerSelect === preguntasDaily[preguntaActual].respuesta) {
+        setPuntuacion(puntuacion + 1);
+
+        setAnswerSelect('');
+      } else {
+        setNumVidas(numVidas - 1);
+        setIncorrectas(incorrectas + 1);
+        setAnswerSelect('');
+      }
     }
   };
 
-  console.log(preguntasDaily[preguntaActual].respuesta);
+  const datosJuego = {
+    ...usuarioSeleccionado,
+    correctas: usuarioSeleccionado.correctas + puntuacion,
+    incorrectas: usuarioSeleccionado.incorrectas + incorrectas,
+    contestadas: usuarioSeleccionado.contestadas + contestadas,
+  };
+
+  const agregarJuego = () => {
+    axios
+      .put(urlBD + usuarioSeleccionado.id, datosJuego)
+      .then((res) =>
+        setUsuarioSeleccionado({
+          ...usuarioSeleccionado,
+          correctas: usuarioSeleccionado.correctas + puntuacion,
+          incorrectas: usuarioSeleccionado.incorrectas + incorrectas,
+          contestadas: usuarioSeleccionado.contestadas + contestadas,
+        })
+      )
+      .catch((err) => console.log(err));
+  };
+
+  console.log(preguntasDaily[preguntaActual].answer);
+
+  if (finalizado) {
+    return (
+      <JuegoFinalizado>
+        <h1>Has finalizado el juego</h1>
+        <h2>Puntuación: {puntuacion}</h2>
+        <h2>Incorrectas: {incorrectas}</h2>
+        <h2>Contestadas: {contestadas}</h2>
+        <Link to='/categorias'>
+          <JugarDeNuevo
+            type='button'
+            onClick={() => {
+              agregarJuego();
+            }}
+          >
+            Volver a jugar
+          </JugarDeNuevo>
+        </Link>
+      </JuegoFinalizado>
+    );
+  }
 
   return (
     <DivContainerCategorias>
@@ -221,7 +301,6 @@ const PreguntaHtml = () => {
           />
         </DivOpcion>
 
-        {/* <Link to='/'> */}
         <DivBotonComp>
           <BtnComprobar
             type='submit'
@@ -232,7 +311,6 @@ const PreguntaHtml = () => {
             Comprobar
           </BtnComprobar>
         </DivBotonComp>
-        {/* </Link> */}
       </FormOpciones>
     </DivContainerCategorias>
   );

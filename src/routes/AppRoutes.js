@@ -10,9 +10,14 @@ import Registro from '../components/Registro';
 
 function App() {
   const [usuarioSeleccionado, setUsuarioSeleccionado] = useState({
+    id: 0,
     nombre: 'persona',
     correo: 'correo@correo',
     imagen: 'https://www.knack.com/images/about/default-profile.png',
+    horas: 0,
+    contestadas: 0,
+    correctas: 0,
+    incorrectas: 0,
   });
 
   return (
@@ -25,12 +30,23 @@ function App() {
         />
         <Route path='/categorias' element={<Categorias />} />
         <Route path='/formulario' element={<Formulario />} />
-        <Route path='/estadisticas' element={<Estadisticas />} />
+        <Route
+          path='/estadisticas'
+          element={<Estadisticas usuarioSeleccionado={usuarioSeleccionado} />}
+        />
         <Route
           path='/perfil'
           element={<Perfil usuarioSeleccionado={usuarioSeleccionado} />}
         />
-        <Route path='/preguntaHtml' element={<PreguntaHtml />} />
+        <Route
+          path='/preguntaHtml'
+          element={
+            <PreguntaHtml
+              setUsuarioSeleccionado={setUsuarioSeleccionado}
+              usuarioSeleccionado={usuarioSeleccionado}
+            />
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

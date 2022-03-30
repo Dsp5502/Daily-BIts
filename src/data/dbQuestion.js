@@ -19,6 +19,7 @@ const preguntasDaily = [
     ],
   },
   {
+    respuesta: '<script>',
     personaje:
       'https://res.cloudinary.com/djjgtili7/image/upload/v1648404167/dailyBits/images/Property_1_2_flbygy.png',
     question:
@@ -26,34 +27,29 @@ const preguntasDaily = [
     opciones: [
       {
         a: '<br>',
-        correct: false,
       },
       {
         b: '<script>',
-        correct: true,
       },
       {
         c: '<styles>',
-        correct: false,
       },
     ],
   },
   {
+    respuesta: 'Don’t repeat yourself',
     personaje:
       'https://res.cloudinary.com/djjgtili7/image/upload/v1648404167/dailyBits/images/Property_1_3_pktixl.png',
     question: '¿Qué significa DRY?',
     opciones: [
       {
         a: 'Don’t repeat yellow',
-        correct: false,
       },
       {
         b: 'Don’t repeat yourself',
-        correct: true,
       },
       {
         c: 'Don’t recicle year',
-        correct: false,
       },
     ],
   },

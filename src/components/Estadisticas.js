@@ -82,7 +82,10 @@ const SpanDatos = styled.span`
   letter-spacing: 0.005em;
 `;
 
-const Estadisticas = () => {
+const Estadisticas = ({ usuarioSeleccionado }) => {
+  console.log(usuarioSeleccionado);
+  const { horas, contestadas, correctas, incorrectas } = usuarioSeleccionado;
+
   return (
     <DivContainerEstadisticas>
       <DivTitulo>
@@ -94,18 +97,18 @@ const Estadisticas = () => {
       <DivEstadistica>
         <ContainerResultado>
           <div>Tiempo de estudio(horas)</div>
-          <SpanDatos>1</SpanDatos>
+          <SpanDatos>{horas}</SpanDatos>
         </ContainerResultado>
         <ContainerResultado>
-          Respuestas contestadas <SpanDatos>40</SpanDatos>
+          Respuestas contestadas <SpanDatos>{contestadas}</SpanDatos>
         </ContainerResultado>
         <ContainerResultado>
           Respuestas correctas{' '}
-          <SpanDatos style={{ color: 'green' }}>20</SpanDatos>
+          <SpanDatos style={{ color: 'green' }}>{correctas}</SpanDatos>
         </ContainerResultado>
         <ContainerResultado>
           Respuestas incorrectas{' '}
-          <SpanDatos style={{ color: 'red' }}>1</SpanDatos>
+          <SpanDatos style={{ color: 'red' }}>{incorrectas}</SpanDatos>
         </ContainerResultado>
       </DivEstadistica>
       <NavBar />

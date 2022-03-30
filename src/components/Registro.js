@@ -170,7 +170,6 @@ const Registro = ({ setUsuarioSeleccionado }) => {
       setUsuario({
         isAdd: true,
       });
-    } else {
     }
     console.log(resultadoBusqueda);
     setUsuarioSeleccionado(resultadoBusqueda);
