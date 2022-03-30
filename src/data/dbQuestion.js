@@ -56,9 +56,9 @@ const preguntasDaily = [
   {
     respuesta: [
       '<!DOCTYPE html>',
-      '<body> </body>',
-      '<head> </head>',
       '<html> ',
+      '<head> </head>',
+      '<body> </body>',
       '</html>',
     ],
 

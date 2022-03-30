@@ -3,11 +3,13 @@ import styled from 'styled-components';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import preguntasDaily from '../../data/dbQuestion';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const DivContainerCategorias = styled.div`
-  border: solid 1px red;
+  /* border: solid 1px red; */
   width: 411px;
-  height: 98vh;
+  height: 100vh;
   background-color: black;
   display: flex;
   flex-direction: column;
@@ -48,23 +50,13 @@ const SpanNumVidas = styled.div`
   margin: 0 10px;
 `;
 
-const DivImagen = styled.div`
-  display: flex;
-  width: 360px;
-  height: 159px;
-  padding: 16px;
-  justify-content: flex-start;
-  align-items: flex-start;
-  /* border: solid 1px red; */
-`;
-
 const DivPregunta = styled.div`
   width: 330px;
   height: 160px;
   font-weight: 700;
   font-size: 22px;
   line-height: 30px;
-  border: solid 1px red;
+  /* border: solid 1px red; */
   padding: 0 16px;
 `;
 
@@ -78,28 +70,6 @@ const FormOpciones = styled.form`
   align-items: center;
   padding: 16px 16px 32px;
   margin-top: 50px;
-`;
-
-const DivOpcion = styled.label`
-  width: 328px;
-  height: 56px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px;
-  background: #232e35;
-  border: 2px solid #fffffe;
-  box-sizing: border-box;
-  border-radius: 4px;
-  margin-bottom: 16px;
-  &:hover {
-    border: solid 2px green;
-  }
-`;
-
-const LetraPregunta = styled.input`
-  display: flex;
 `;
 
 const DivBotonComp = styled.div`
@@ -140,7 +110,7 @@ const DivPalabrasSeleccionadas = styled.div`
   align-items: flex-start;
   width: 360px;
   height: 266px;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 `;
 
 const DivPalabraSelect = styled.div`
@@ -151,7 +121,7 @@ const DivPalabraSelect = styled.div`
   width: 160px;
   height: 40px;
   margin: 16px 0px;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 `;
 
 const Palabra = styled.p`
@@ -182,7 +152,7 @@ const DivElegirOrden = styled.div`
   padding: 16px 5px 32px;
   width: 357px;
   height: 144px;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 `;
 const BtnOrden = styled.button`
   background: #16161a;
@@ -216,17 +186,46 @@ const BtnOrden = styled.button`
 `;
 
 const OrdenarPregunta = () => {
-  const [palabraSelec, setPalabraSelec] = useState('');
   const [ordenPalabras, setOrdenPalabras] = useState([]);
 
   const agregar = (e) => {
     console.log(e.target);
-    setPalabraSelec(e.target.value);
     setOrdenPalabras([...ordenPalabras, e.target.value]);
     e.target.disabled = true;
   };
 
-  console.log(preguntasDaily);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (
+      JSON.stringify(ordenPalabras) ===
+      JSON.stringify(preguntasDaily[3].respuesta)
+    ) {
+      toast.success(`¡Buen trabajo!`, {
+        position: 'bottom-center',
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } else {
+      toast.error(
+        `La respuesta correcta es: ${JSON.stringify(
+          preguntasDaily[3].respuesta
+        )}`,
+        {
+          position: 'bottom-center',
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
+    }
+  };
 
   console.log(ordenPalabras);
   return (
@@ -247,7 +246,7 @@ const OrdenarPregunta = () => {
         ))}
       </DivPalabrasSeleccionadas>
 
-      <FormOpciones>
+      <FormOpciones onSubmit={handleSubmit}>
         <DivElegirOrden>
           <BtnOrden
             type='button'
@@ -300,6 +299,7 @@ const OrdenarPregunta = () => {
           <BtnComprobar type='submit'>Comprobar</BtnComprobar>
         </DivBotonComp>
       </FormOpciones>
+      <ToastContainer />
     </DivContainerCategorias>
   );
 };
