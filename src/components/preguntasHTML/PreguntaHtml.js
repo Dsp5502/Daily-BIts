@@ -1,9 +1,14 @@
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import preguntasDaily from '../../data/dbQuestion';
+import '../../eventos.css';
 
 const DivContainerCategorias = styled.div`
-  border: solid 1px red;
+  /* border: solid 1px red; */
   width: 411px;
   height: 98vh;
   background-color: black;
@@ -23,7 +28,7 @@ const DivContainerCategorias = styled.div`
   }
 `;
 const DivBar = styled.div`
-  border: solid 1px red;
+  /* border: solid 1px red; */
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -53,7 +58,7 @@ const DivImagen = styled.div`
   padding: 16px;
   justify-content: flex-start;
   align-items: flex-start;
-  border: solid 1px red;
+  /* border: solid 1px red; */
 `;
 
 const ImgMuñeco = styled.img`
@@ -68,11 +73,11 @@ const DivPregunta = styled.div`
   font-weight: 700;
   font-size: 22px;
   line-height: 30px;
-  border: solid 1px red;
+  /* border: solid 1px red; */
   margin-left: 20px;
 `;
 
-const DivOpciones = styled.div`
+const FormOpciones = styled.form`
   width: 360px;
   height: 248px;
   border: solid 1px red;
@@ -84,6 +89,28 @@ const DivOpciones = styled.div`
   margin-top: 50px;
 `;
 
+const DivOpcion = styled.label`
+  width: 328px;
+  height: 56px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: #232e35;
+  border: 2px solid #fffffe;
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  &:hover {
+    border: solid 2px green;
+  }
+`;
+
+const LetraPregunta = styled.input`
+  display: flex;
+`;
+
 const DivBotonComp = styled.div`
   display: flex;
   flex-direction: column;
@@ -92,6 +119,7 @@ const DivBotonComp = styled.div`
   width: 360px;
   height: 82px;
   border: solid 1px red;
+  cursor: pointer;
 `;
 
 const BtnComprobar = styled.button`
@@ -107,32 +135,105 @@ const BtnComprobar = styled.button`
   text-align: center;
   letter-spacing: 0.0125em;
   color: white;
+  cursor: pointer;
 `;
 
 const PreguntaHtml = () => {
+  const [preguntas, setPreguntas] = useState([]);
+  const [preguntaActual, setPreguntaActual] = useState(0);
+  const [puntuacion, setPuntuacion] = useState(0);
+  const [finalizado, setFinalizado] = useState(true);
+  const [numVidas, setNumVidas] = useState(4);
+  const [answerSelect, setAnswerSelect] = useState('');
+
+  const handleChange = ({ target }) => {
+    console.log(target.value);
+
+    setAnswerSelect(target.value);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(answerSelect);
+  };
+
+  const comprobar = () => {
+    alert('ganaste');
+    setPreguntaActual(preguntaActual + 1);
+    if (answerSelect === preguntasDaily[preguntaActual].respuesta) {
+      setPuntuacion(puntuacion + 1);
+      setAnswerSelect('');
+    } else {
+      setNumVidas(numVidas - 1);
+      setAnswerSelect('');
+    }
+    if (preguntaActual === preguntas.length - 1) {
+      setFinalizado(true);
+    }
+  };
+
+  console.log(preguntasDaily[preguntaActual].respuesta);
+
   return (
     <DivContainerCategorias>
       <DivBar>
         <ProgresBar></ProgresBar>
         <FontAwesomeIcon icon={faHeart} style={{ color: 'red' }} />
-        <SpanNumVidas>4</SpanNumVidas>
+        <SpanNumVidas>{numVidas}</SpanNumVidas>
       </DivBar>
       <DivImagen>
         <ImgMuñeco
-          src='https://res.cloudinary.com/djjgtili7/image/upload/v1648404167/dailyBits/images/Property_1_1_pl63sg.png'
+          src={preguntasDaily[preguntaActual].personaje}
           alt='imagenCaricatura'
         />
         <DivPregunta>
-          <p>
-            ¿Qué etiqueta es semánticamente correcta para el contenido
-            principal?
-          </p>
+          <p>{preguntasDaily[preguntaActual].question}</p>
         </DivPregunta>
       </DivImagen>
-      <DivOpciones></DivOpciones>
-      <DivBotonComp>
-        <BtnComprobar>Comprobar</BtnComprobar>
-      </DivBotonComp>
+      <FormOpciones onSubmit={handleSubmit}>
+        <DivOpcion>
+          {preguntasDaily[preguntaActual].opciones[0].a}
+          <LetraPregunta
+            type='radio'
+            name='respuestas'
+            id={preguntasDaily[preguntaActual].opciones[0].a}
+            value={preguntasDaily[preguntaActual].opciones[0].a}
+            onChange={handleChange}
+          />
+        </DivOpcion>
+        <DivOpcion htmlFor=''>
+          {preguntasDaily[preguntaActual].opciones[1].b}
+          <LetraPregunta
+            type='radio'
+            name='respuestas'
+            id={preguntasDaily[preguntaActual].opciones[1].b}
+            value={preguntasDaily[preguntaActual].opciones[1].b}
+            onChange={handleChange}
+          />
+        </DivOpcion>
+        <DivOpcion htmlFor=''>
+          {preguntasDaily[preguntaActual].opciones[2].c}
+          <LetraPregunta
+            type='radio'
+            name='respuestas'
+            id={preguntasDaily[preguntaActual].opciones[2].c}
+            value={preguntasDaily[preguntaActual].opciones[2].c}
+            onChange={handleChange}
+          />
+        </DivOpcion>
+
+        {/* <Link to='/'> */}
+        <DivBotonComp>
+          <BtnComprobar
+            type='submit'
+            onClick={() => {
+              comprobar();
+            }}
+          >
+            Comprobar
+          </BtnComprobar>
+        </DivBotonComp>
+        {/* </Link> */}
+      </FormOpciones>
     </DivContainerCategorias>
   );
 };
