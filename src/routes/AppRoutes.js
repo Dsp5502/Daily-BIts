@@ -5,6 +5,7 @@ import Estadisticas from '../components/Estadisticas';
 import Formulario from '../components/Formulario';
 import Home from '../components/Home';
 import Perfil from '../components/Perfil';
+import OrdenarPregunta from '../components/preguntasHTML/OrdenarPregunta';
 import PreguntaHtml from '../components/preguntasHTML/PreguntaHtml';
 import Registro from '../components/Registro';
 
@@ -47,6 +48,7 @@ function App() {
             />
           }
         />
+        <Route path='/ordenaPreguntar' element={<OrdenarPregunta />} />
       </Routes>
     </BrowserRouter>
   );

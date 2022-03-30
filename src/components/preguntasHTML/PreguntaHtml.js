@@ -1,12 +1,15 @@
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import preguntasDaily from '../../data/dbQuestion';
 import '../../eventos.css';
 import { urlBD } from '../helpers/url';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const DivContainerCategorias = styled.div`
   /* border: solid 1px red; */
@@ -194,17 +197,37 @@ const PreguntaHtml = ({ setUsuarioSeleccionado, usuarioSeleccionado }) => {
 
   const comprobar = () => {
     if (numVidas === 1) {
-      alert('Perdiste');
       setFinalizado(true);
     } else {
       if (answerSelect === preguntasDaily[preguntaActual].respuesta) {
         setPuntuacion(puntuacion + 1);
-
         setAnswerSelect('');
+
+        toast.success(`¡Buen trabajo!`, {
+          position: 'bottom-center',
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
       } else {
         setNumVidas(numVidas - 1);
         setIncorrectas(incorrectas + 1);
         setAnswerSelect('');
+        toast.error(
+          `La respuesta correcta es: ${preguntasDaily[preguntaActual].respuesta}`,
+          {
+            position: 'bottom-center',
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
       }
     }
   };
@@ -310,6 +333,7 @@ const PreguntaHtml = ({ setUsuarioSeleccionado, usuarioSeleccionado }) => {
           >
             Comprobar
           </BtnComprobar>
+          <ToastContainer />
         </DivBotonComp>
       </FormOpciones>
     </DivContainerCategorias>
