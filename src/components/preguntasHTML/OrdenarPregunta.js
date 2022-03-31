@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import preguntasDaily from '../../data/dbQuestion';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+import preguntasJS from '../../data/dbQuestion2';
 
 const DivContainerCategorias = styled.div`
   /* border: solid 1px red; */
@@ -185,8 +186,13 @@ const BtnOrden = styled.button`
   }
 `;
 
-const OrdenarPregunta = () => {
+const OrdenarPregunta = ({ vidasGlobal }) => {
   const [ordenPalabras, setOrdenPalabras] = useState([]);
+  const navigate = useNavigate();
+
+  console.log(vidasGlobal);
+
+  console.log(preguntasJS[0].a);
 
   const agregar = (e) => {
     console.log(e.target);
@@ -196,9 +202,9 @@ const OrdenarPregunta = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (
-      JSON.stringify(ordenPalabras) ===
-      JSON.stringify(preguntasDaily[3].respuesta)
+      JSON.stringify(ordenPalabras) === JSON.stringify(preguntasJS[0].respuesta)
     ) {
       toast.success(`¡Buen trabajo!`, {
         position: 'bottom-center',
@@ -211,9 +217,7 @@ const OrdenarPregunta = () => {
       });
     } else {
       toast.error(
-        `La respuesta correcta es: ${JSON.stringify(
-          preguntasDaily[3].respuesta
-        )}`,
+        `La respuesta correcta es: ${JSON.stringify(preguntasJS[0].respuesta)}`,
         {
           position: 'bottom-center',
           autoClose: 1000,
@@ -225,6 +229,9 @@ const OrdenarPregunta = () => {
         }
       );
     }
+    setTimeout(() => {
+      navigate('/mevnpregunta');
+    }, 3000);
   };
 
   console.log(ordenPalabras);
@@ -233,7 +240,7 @@ const OrdenarPregunta = () => {
       <DivBar>
         <ProgresBar></ProgresBar>
         <FontAwesomeIcon icon={faHeart} style={{ color: 'red' }} />
-        <SpanNumVidas>vidas</SpanNumVidas>
+        <SpanNumVidas>{vidasGlobal}</SpanNumVidas>
       </DivBar>
       <DivPregunta>
         <p>Organiza la estructura de un documento HTML5</p>
@@ -250,48 +257,48 @@ const OrdenarPregunta = () => {
         <DivElegirOrden>
           <BtnOrden
             type='button'
-            value={preguntasDaily[3].a}
+            value={preguntasJS[0].a}
             onClick={(e) => {
               agregar(e);
             }}
           >
-            {preguntasDaily[3].a}
+            {preguntasJS[0].a}
           </BtnOrden>
           <BtnOrden
             type='button'
-            value={preguntasDaily[3].b}
+            value={preguntasJS[0].b}
             onClick={(e) => {
               agregar(e);
             }}
           >
-            {preguntasDaily[3].b}
+            {preguntasJS[0].b}
           </BtnOrden>
           <BtnOrden
             type='button'
-            value={preguntasDaily[3].c}
+            value={preguntasJS[0].c}
             onClick={(e) => {
               agregar(e);
             }}
           >
-            {preguntasDaily[3].c}
+            {preguntasJS[0].c}
           </BtnOrden>
           <BtnOrden
             type='button'
-            value={preguntasDaily[3].d}
+            value={preguntasJS[0].d}
             onClick={(e) => {
               agregar(e);
             }}
           >
-            {preguntasDaily[3].d}
+            {preguntasJS[0].d}
           </BtnOrden>
           <BtnOrden
             type='button'
-            value={preguntasDaily[3].e}
+            value={preguntasJS[0].e}
             onClick={(e) => {
               agregar(e);
             }}
           >
-            {preguntasDaily[3].e}
+            {preguntasJS[0].e}
           </BtnOrden>
         </DivElegirOrden>
 

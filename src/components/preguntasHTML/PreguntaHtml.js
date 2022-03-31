@@ -10,7 +10,6 @@ import { urlBD } from '../helpers/url';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 const DivContainerCategorias = styled.div`
   /* border: solid 1px red; */
   width: 411px;
@@ -170,16 +169,23 @@ const JugarDeNuevo = styled.button`
   }
 `;
 
-const PreguntaHtml = ({ setUsuarioSeleccionado, usuarioSeleccionado }) => {
+const PreguntaHtml = ({
+  setUsuarioSeleccionado,
+  usuarioSeleccionado,
+  setVidasGlobal,
+  vidasGlobal,
+}) => {
   const [preguntaActual, setPreguntaActual] = useState(0);
   const [puntuacion, setPuntuacion] = useState(0);
   const [finalizado, setFinalizado] = useState(false);
-  const [numVidas, setNumVidas] = useState(2);
+  const [numVidas, setNumVidas] = useState(vidasGlobal);
   const [answerSelect, setAnswerSelect] = useState('');
   const [incorrectas, setIncorrectas] = useState(0);
   const [contestadas, setContestadas] = useState(0);
 
   console.log(usuarioSeleccionado.id);
+
+  console.log(preguntasDaily[preguntaActual].opciones[0].a);
 
   const handleChange = ({ target }) => {
     console.log(target.value);
@@ -187,7 +193,9 @@ const PreguntaHtml = ({ setUsuarioSeleccionado, usuarioSeleccionado }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log('hola');
     setContestadas(contestadas + 1);
+    setVidasGlobal(numVidas);
     if (preguntaActual === preguntasDaily.length - 1) {
       setFinalizado(true);
     } else {
@@ -252,8 +260,6 @@ const PreguntaHtml = ({ setUsuarioSeleccionado, usuarioSeleccionado }) => {
       )
       .catch((err) => console.log(err));
   };
-
-  console.log(preguntasDaily[preguntaActual].answer);
 
   if (finalizado) {
     return (

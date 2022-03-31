@@ -5,6 +5,7 @@ import Estadisticas from '../components/Estadisticas';
 import Formulario from '../components/Formulario';
 import Home from '../components/Home';
 import Perfil from '../components/Perfil';
+import MevnPregunta from '../components/preguntasHTML/MevnPregunta';
 import OrdenarPregunta from '../components/preguntasHTML/OrdenarPregunta';
 import PreguntaHtml from '../components/preguntasHTML/PreguntaHtml';
 import Registro from '../components/Registro';
@@ -20,6 +21,9 @@ function App() {
     correctas: 0,
     incorrectas: 0,
   });
+  const [vidasGlobal, setVidasGlobal] = useState(3);
+
+  console.log(vidasGlobal);
 
   return (
     <BrowserRouter>
@@ -45,10 +49,19 @@ function App() {
             <PreguntaHtml
               setUsuarioSeleccionado={setUsuarioSeleccionado}
               usuarioSeleccionado={usuarioSeleccionado}
+              setVidasGlobal={setVidasGlobal}
+              vidasGlobal={vidasGlobal}
             />
           }
         />
-        <Route path='/ordenaPreguntar' element={<OrdenarPregunta />} />
+        <Route
+          path='/ordenaPreguntar'
+          element={<OrdenarPregunta vidasGlobal={vidasGlobal} />}
+        />
+        <Route
+          path='/mevnpregunta'
+          element={<MevnPregunta vidasGlobal={vidasGlobal} />}
+        />
       </Routes>
     </BrowserRouter>
   );

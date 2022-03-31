@@ -53,21 +53,6 @@ const preguntasDaily = [
       },
     ],
   },
-  {
-    respuesta: [
-      '<!DOCTYPE html>',
-      '<html> ',
-      '<head> </head>',
-      '<body> </body>',
-      '</html>',
-    ],
-
-    a: '<!DOCTYPE html>',
-    b: '<body> </body>',
-    c: '<head> </head>',
-    d: '<html> ',
-    e: '</html>',
-  },
 ];
 
 export default preguntasDaily;

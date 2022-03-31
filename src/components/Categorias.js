@@ -99,13 +99,15 @@ const Categorias = () => {
           />
           <TitleLogo>CSS</TitleLogo>
         </DivlogoSelec>
-        <DivlogoSelec>
-          <ImgLogo
-            src='https://res.cloudinary.com/djjgtili7/image/upload/v1648435350/dailyBits/images/Ellipse_4_q9mest.png'
-            alt='js'
-          />
-          <TitleLogo>JS</TitleLogo>
-        </DivlogoSelec>
+        <Link to='/ordenaPreguntar'>
+          <DivlogoSelec>
+            <ImgLogo
+              src='https://res.cloudinary.com/djjgtili7/image/upload/v1648435350/dailyBits/images/Ellipse_4_q9mest.png'
+              alt='js'
+            />
+            <TitleLogo>JS</TitleLogo>
+          </DivlogoSelec>
+        </Link>
         <Link to='/preguntaHtml'>
           <DivlogoSelec>
             <ImgLogo
