@@ -5,6 +5,7 @@ import Categorias from '../components/Categorias';
 import Estadisticas from '../components/Estadisticas';
 import Formulario from '../components/Formulario';
 import Home from '../components/Home';
+import Inscribirse from '../components/Inscribirse';
 import Perfil from '../components/Perfil';
 import MevnPregunta from '../components/preguntasHTML/MevnPregunta';
 import OrdenarPregunta from '../components/preguntasHTML/OrdenarPregunta';
@@ -115,6 +116,7 @@ function App() {
           path='/adminuser'
           element={<AdminUSer usuariosAdmin={usuariosAdmin} />}
         />
+        <Route path='/inscribirse' element={<Inscribirse />} />
       </Routes>
     </BrowserRouter>
   );

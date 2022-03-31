@@ -219,7 +219,9 @@ const Registro = ({ setUsuarioSeleccionado, setusuariosAdmin }) => {
         </SpanOlvido>
         <PInscribirse>
           ¿Aún no tienes una cuenta?{' '}
-          <SpanInscribirse>Inscribirse</SpanInscribirse>{' '}
+          <SpanInscribirse>
+            <Link to='/inscribirse'> Inscribirse</Link>
+          </SpanInscribirse>{' '}
         </PInscribirse>
       </DivLogin>
     </DivContainerRegistro>

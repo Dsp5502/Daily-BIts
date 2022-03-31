@@ -1,5 +1,7 @@
+import axios from 'axios';
 import React from 'react';
 import styled from 'styled-components';
+import { urlBD } from './helpers/url';
 
 const DivAdminUser = styled.div`
   width: 411px;
@@ -83,10 +85,22 @@ const EliminarUser = styled.button`
   margin: 15px;
   padding: 5px 0;
   color: white;
+  cursor: pointer;
 `;
 
 const AdminUSer = ({ usuariosAdmin }) => {
   console.log(usuariosAdmin);
+
+  const deleteData = (id) => {
+    console.log(id);
+    axios
+      .delete(urlBD + id)
+      .then((resp) => {
+        console.log(resp);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <DivAdminUser>
       <h1>Admin</h1>
@@ -113,7 +127,9 @@ const AdminUSer = ({ usuariosAdmin }) => {
               <PEsta>
                 Respuestas incorrectas: <span>{usuario.incorrectas}</span>
               </PEsta>
-              <EliminarUser>ELIMINAR</EliminarUser>
+              <EliminarUser onClick={() => deleteData(usuario.id)}>
+                ELIMINAR
+              </EliminarUser>
             </DivEsta>
           </DivUser>
         );
