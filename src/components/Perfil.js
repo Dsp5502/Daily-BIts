@@ -77,7 +77,7 @@ const SpanCerrar = styled.span`
 `;
 const Perfil = ({ usuarioSeleccionado }) => {
   const { correo, nombre, imagen } = usuarioSeleccionado;
-  console.log(usuarioSeleccionado);
+
   return (
     <DivContainerPerfil>
       <TituloPerfil>Perfil</TituloPerfil>

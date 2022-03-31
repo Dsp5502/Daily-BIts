@@ -139,7 +139,7 @@ const Registro = ({ setUsuarioSeleccionado, setusuariosAdmin }) => {
 
   setusuariosAdmin(userBD);
 
-  console.log(userBD);
+  
 
   const getData = () => {
     axios
@@ -160,7 +160,7 @@ const Registro = ({ setUsuarioSeleccionado, setusuariosAdmin }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     usuarioExiste(usuario.correo.toString());
-    console.log(usuario.correo.toString());
+    
   };
 
   const usuarioExiste = (correoIngresado) => {
@@ -168,12 +168,12 @@ const Registro = ({ setUsuarioSeleccionado, setusuariosAdmin }) => {
       el.correo.toString().toLowerCase().includes(correoIngresado.toLowerCase())
     );
     if (resultadoBusqueda.correo === usuario.correo.toString()) {
-      console.log('existe');
+      
       setUsuario({
         isAdd: true,
       });
     }
-    console.log(resultadoBusqueda);
+    
     setUsuarioSeleccionado(resultadoBusqueda);
   };
 
@@ -182,7 +182,7 @@ const Registro = ({ setUsuarioSeleccionado, setusuariosAdmin }) => {
       ...usuario,
       [target.name]: [target.value],
     });
-    console.log(target.value);
+   
   };
 
   return (

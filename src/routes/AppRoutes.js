@@ -31,10 +31,6 @@ function App() {
   const [incorrectas, setIncorrectas] = useState(0);
   const [usuariosAdmin, setusuariosAdmin] = useState({});
 
-  console.log(punto);
-  console.log(vidasGlobal);
-  console.log(usuariosAdmin);
-
   if (final && vidasGlobal === 0) {
     setVidasGlobal(3);
   }

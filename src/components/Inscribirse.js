@@ -135,7 +135,6 @@ const Inscribirse = () => {
   };
 
   const handleChange = ({ target }) => {
-    console.log(target.value);
     setUserNew({
       ...userNew,
       [target.name]: target.value,

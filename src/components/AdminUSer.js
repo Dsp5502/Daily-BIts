@@ -93,10 +93,8 @@ const EliminarUser = styled.button`
 
 const AdminUSer = ({ usuariosAdmin, setusuariosAdmin }) => {
   const navigate = useNavigate();
-  console.log(usuariosAdmin);
 
   const deleteData = (id) => {
-    console.log(id);
     axios
       .delete(urlBD + id)
       .then((resp) => {

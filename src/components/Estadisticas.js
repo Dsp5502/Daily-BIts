@@ -83,7 +83,7 @@ const SpanDatos = styled.span`
 `;
 
 const Estadisticas = ({ usuarioSeleccionado }) => {
-  console.log(usuarioSeleccionado);
+  
   const { horas, contestadas, correctas, incorrectas } = usuarioSeleccionado;
 
   return (

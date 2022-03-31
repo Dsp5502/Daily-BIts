@@ -183,17 +183,15 @@ const PreguntaHtml = ({
   const [incorrectas, setIncorrectas] = useState(0);
   const [contestadas, setContestadas] = useState(0);
 
-  console.log(usuarioSeleccionado.id);
-
-  console.log(preguntasDaily[preguntaActual].opciones[0].a);
+ 
 
   const handleChange = ({ target }) => {
-    console.log(target.value);
+   
     setAnswerSelect(target.value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('hola');
+    
     setContestadas(contestadas + 1);
     setVidasGlobal(numVidas);
     if (finalizado && vidasGlobal === 0) {

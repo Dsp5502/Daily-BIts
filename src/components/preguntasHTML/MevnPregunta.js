@@ -190,7 +190,7 @@ const MevnPregunta = ({
 }) => {
   const [preguntaSelect, setPreguntaSelect] = React.useState('');
 
-  console.log(preguntasJS[1]);
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -228,7 +228,7 @@ const MevnPregunta = ({
   };
 
   const handleChange = (target) => {
-    console.log(target.id);
+    
     setPreguntaSelect(target.id);
   };
 
