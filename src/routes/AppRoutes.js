@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import AdminUSer from '../components/AdminUSer';
 import Categorias from '../components/Categorias';
 import Estadisticas from '../components/Estadisticas';
 import Formulario from '../components/Formulario';
@@ -27,9 +28,11 @@ function App() {
   const [contestadas, setContestadas] = useState(0);
   const [correctas, setCorrectas] = useState(0);
   const [incorrectas, setIncorrectas] = useState(0);
+  const [usuariosAdmin, setusuariosAdmin] = useState({});
 
   console.log(punto);
   console.log(vidasGlobal);
+  console.log(usuariosAdmin);
 
   if (final && vidasGlobal === 0) {
     setVidasGlobal(3);
@@ -41,7 +44,12 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route
           path='/registro'
-          element={<Registro setUsuarioSeleccionado={setUsuarioSeleccionado} />}
+          element={
+            <Registro
+              setUsuarioSeleccionado={setUsuarioSeleccionado}
+              setusuariosAdmin={setusuariosAdmin}
+            />
+          }
         />
         <Route path='/categorias' element={<Categorias />} />
         <Route path='/formulario' element={<Formulario />} />
@@ -102,6 +110,10 @@ function App() {
               usuarioSeleccionado={usuarioSeleccionado}
             />
           }
+        />
+        <Route
+          path='/adminuser'
+          element={<AdminUSer usuariosAdmin={usuariosAdmin} />}
         />
       </Routes>
     </BrowserRouter>

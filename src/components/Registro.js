@@ -130,12 +130,14 @@ const SpanInscribirse = styled.span`
   }
 `;
 
-const Registro = ({ setUsuarioSeleccionado }) => {
+const Registro = ({ setUsuarioSeleccionado, setusuariosAdmin }) => {
   const [userBD, setUserBD] = useState();
   const [usuario, setUsuario] = useState({
     correo: '',
     isAdd: false,
   });
+
+  setusuariosAdmin(userBD);
 
   console.log(userBD);
 
@@ -211,7 +213,10 @@ const Registro = ({ setUsuarioSeleccionado }) => {
             <Link to='/categorias'>Empieza a Jugar</Link>
           </BtnAcceso>
         )}
-        <SpanOlvido>¿Se te olvidó tu contraseña?</SpanOlvido>
+        <SpanOlvido>
+          {' '}
+          <Link to='/adminuser'> ¿Se te olvidó tu contraseña? </Link>
+        </SpanOlvido>
         <PInscribirse>
           ¿Aún no tienes una cuenta?{' '}
           <SpanInscribirse>Inscribirse</SpanInscribirse>{' '}
