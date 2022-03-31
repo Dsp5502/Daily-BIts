@@ -196,6 +196,9 @@ const PreguntaHtml = ({
     console.log('hola');
     setContestadas(contestadas + 1);
     setVidasGlobal(numVidas);
+    if (finalizado && vidasGlobal === 0) {
+      setVidasGlobal(3);
+    }
     if (preguntaActual === preguntasDaily.length - 1) {
       setFinalizado(true);
     } else {
@@ -204,7 +207,7 @@ const PreguntaHtml = ({
   };
 
   const comprobar = () => {
-    if (numVidas === 1) {
+    if (numVidas === 0) {
       setFinalizado(true);
     } else {
       if (answerSelect === preguntasDaily[preguntaActual].respuesta) {

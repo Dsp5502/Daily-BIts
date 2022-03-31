@@ -5,6 +5,9 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import preguntasJS from '../../data/dbQuestion2';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { urlBD } from '../helpers/url';
 
 const DivMevnPregunta = styled.div`
   border: solid 1px red;
@@ -143,18 +146,85 @@ const Form1 = styled.form`
   align-items: center;
 `;
 
-const MevnPregunta = ({ vidasGlobal }) => {
+const JuegoFinalizado = styled.div`
+  /* border: solid 1px red; */
+  width: 411px;
+  height: 98vh;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  margin: 0 auto;
+`;
+
+const JugarDeNuevo = styled.button`
+  background-color: rgb(44, 182, 125);
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 16px;
+  &:hover {
+    background-color: #eb163e;
+  }
+`;
+
+const MevnPregunta = ({
+  vidasGlobal,
+  setPunto,
+  punto,
+  setVidasGlobal,
+  setfinal,
+  final,
+  contestadas,
+  correctas,
+  incorrectas,
+  setContestadas,
+  setCorrectas,
+  setIncorrectas,
+  setUsuarioSeleccionado,
+  usuarioSeleccionado,
+}) => {
   const [preguntaSelect, setPreguntaSelect] = React.useState('');
 
   console.log(preguntasJS[1]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('handleSubmit');
+    setfinal(true);
+    setContestadas(contestadas + 1);
+
+    if (vidasGlobal === 0) {
+      alert('hola');
+      setfinal(true);
+    }
     if (preguntaSelect === preguntasJS[1].respuesta) {
-      console.log('correcto');
+      setPunto(punto + 1);
+      setCorrectas(correctas + 1);
+      toast.success(`¡Buen trabajo!`, {
+        position: 'bottom-center',
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } else {
-      console.log('incorrecto');
+      setVidasGlobal(vidasGlobal - 1);
+      setIncorrectas(incorrectas + 1);
+      toast.error(`La respuesta correcta es: ${preguntasJS[1].respuesta}`, {
+        position: 'bottom-center',
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
@@ -163,9 +233,52 @@ const MevnPregunta = ({ vidasGlobal }) => {
     setPreguntaSelect(target.id);
   };
 
-  const comprobar = () => {
-    console.log(preguntaSelect);
+  const datosJuego = {
+    ...usuarioSeleccionado,
+    correctas: usuarioSeleccionado.correctas + correctas,
+    incorrectas: usuarioSeleccionado.incorrectas + incorrectas,
+    contestadas: usuarioSeleccionado.contestadas + contestadas,
   };
+
+  const agregarJuego = () => {
+    axios
+      .put(urlBD + usuarioSeleccionado.id, datosJuego)
+      .then((res) =>
+        setUsuarioSeleccionado({
+          ...usuarioSeleccionado,
+          correctas: usuarioSeleccionado.correctas + correctas,
+          incorrectas: usuarioSeleccionado.incorrectas + incorrectas,
+          contestadas: usuarioSeleccionado.contestadas + contestadas,
+        })
+      )
+      .catch((err) => console.log(err));
+
+    setfinal(false);
+    setContestadas(0);
+    setCorrectas(0);
+    setIncorrectas(0);
+  };
+
+  if (final) {
+    return (
+      <JuegoFinalizado>
+        <h1>Has finalizado el juego</h1>
+        <h2>Puntuación: {correctas}</h2>
+        <h2>Incorrectas: {incorrectas}</h2>
+        <h2>Contestadas: {contestadas}</h2>
+        <Link to='/categorias'>
+          <JugarDeNuevo
+            type='button'
+            onClick={() => {
+              agregarJuego();
+            }}
+          >
+            Volver a jugar
+          </JugarDeNuevo>
+        </Link>
+      </JuegoFinalizado>
+    );
+  }
 
   return (
     <DivMevnPregunta>
@@ -229,14 +342,7 @@ const MevnPregunta = ({ vidasGlobal }) => {
           </DivSelection>
         </DivOpciones>
         <DivBotonComp>
-          <BtnComprobar
-            type='submit'
-            onClick={() => {
-              comprobar();
-            }}
-          >
-            Comprobar
-          </BtnComprobar>
+          <BtnComprobar type='submit'>Comprobar</BtnComprobar>
           <ToastContainer />
         </DivBotonComp>
       </Form1>

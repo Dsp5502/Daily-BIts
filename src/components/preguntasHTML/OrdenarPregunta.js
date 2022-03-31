@@ -186,26 +186,36 @@ const BtnOrden = styled.button`
   }
 `;
 
-const OrdenarPregunta = ({ vidasGlobal }) => {
+const OrdenarPregunta = ({
+  vidasGlobal,
+  setPunto,
+  punto,
+  setVidasGlobal,
+  setContestadas,
+  setCorrectas,
+  setIncorrectas,
+  contestadas,
+  correctas,
+  incorrectas,
+}) => {
   const [ordenPalabras, setOrdenPalabras] = useState([]);
+
   const navigate = useNavigate();
 
-  console.log(vidasGlobal);
-
-  console.log(preguntasJS[0].a);
-
   const agregar = (e) => {
-    console.log(e.target);
     setOrdenPalabras([...ordenPalabras, e.target.value]);
     e.target.disabled = true;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setContestadas(contestadas + 1);
 
     if (
       JSON.stringify(ordenPalabras) === JSON.stringify(preguntasJS[0].respuesta)
     ) {
+      setPunto(punto + 1);
+      setCorrectas(correctas + 1);
       toast.success(`¡Buen trabajo!`, {
         position: 'bottom-center',
         autoClose: 1000,
@@ -216,6 +226,8 @@ const OrdenarPregunta = ({ vidasGlobal }) => {
         progress: undefined,
       });
     } else {
+      setIncorrectas(incorrectas + 1);
+      setVidasGlobal(vidasGlobal - 1);
       toast.error(
         `La respuesta correcta es: ${JSON.stringify(preguntasJS[0].respuesta)}`,
         {
@@ -234,7 +246,6 @@ const OrdenarPregunta = ({ vidasGlobal }) => {
     }, 3000);
   };
 
-  console.log(ordenPalabras);
   return (
     <DivContainerCategorias>
       <DivBar>

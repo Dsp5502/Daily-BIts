@@ -22,8 +22,18 @@ function App() {
     incorrectas: 0,
   });
   const [vidasGlobal, setVidasGlobal] = useState(3);
+  const [punto, setPunto] = useState(0);
+  const [final, setfinal] = useState(false);
+  const [contestadas, setContestadas] = useState(0);
+  const [correctas, setCorrectas] = useState(0);
+  const [incorrectas, setIncorrectas] = useState(0);
 
+  console.log(punto);
   console.log(vidasGlobal);
+
+  if (final && vidasGlobal === 0) {
+    setVidasGlobal(3);
+  }
 
   return (
     <BrowserRouter>
@@ -56,11 +66,42 @@ function App() {
         />
         <Route
           path='/ordenaPreguntar'
-          element={<OrdenarPregunta vidasGlobal={vidasGlobal} />}
+          element={
+            <OrdenarPregunta
+              vidasGlobal={vidasGlobal}
+              setPunto={setPunto}
+              punto={punto}
+              setVidasGlobal={setVidasGlobal}
+              setfinal={setfinal}
+              setContestadas={setContestadas}
+              setCorrectas={setCorrectas}
+              setIncorrectas={setIncorrectas}
+              contestadas={contestadas}
+              correctas={correctas}
+              incorrectas={incorrectas}
+            />
+          }
         />
         <Route
           path='/mevnpregunta'
-          element={<MevnPregunta vidasGlobal={vidasGlobal} />}
+          element={
+            <MevnPregunta
+              vidasGlobal={vidasGlobal}
+              setPunto={setPunto}
+              punto={punto}
+              setVidasGlobal
+              setfinal={setfinal}
+              final={final}
+              setContestadas={setContestadas}
+              setCorrectas={setCorrectas}
+              setIncorrectas={setIncorrectas}
+              contestadas={contestadas}
+              correctas={correctas}
+              incorrectas={incorrectas}
+              setUsuarioSeleccionado={setUsuarioSeleccionado}
+              usuarioSeleccionado={usuarioSeleccionado}
+            />
+          }
         />
       </Routes>
     </BrowserRouter>
