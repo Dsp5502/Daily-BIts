@@ -96,7 +96,7 @@ const InputForm = styled.input`
   padding: 0 8px;
 `;
 const SpanOlvido = styled.span`
-  color: #2cb67d;
+  color: black;
   text-decoration: underline;
   text-align: center;
   margin: 32px 0;
@@ -113,7 +113,7 @@ const PInscribirse = styled.p`
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
-  margin: 0 0 32px;
+  margin: 48px 0;
 `;
 
 const SpanInscribirse = styled.span`
@@ -195,9 +195,7 @@ const Registro = ({ setUsuarioSeleccionado, setusuariosAdmin }) => {
       </DivImgPrincipal>
       <DivLogin>
         <Titulo>Iniciar sesión</Titulo>
-        <BtnGoogle>
-          <Link to='/categorias'>Continuar con Google</Link>
-        </BtnGoogle>
+        <BtnGoogle>Continuar con Google</BtnGoogle>
         <FormCorreo onSubmit={handleSubmit}>
           <LabelForm htmlFor=''>Correo electrónico</LabelForm>
           <InputForm
@@ -213,16 +211,17 @@ const Registro = ({ setUsuarioSeleccionado, setusuariosAdmin }) => {
             <Link to='/categorias'>Empieza a Jugar</Link>
           </BtnAcceso>
         )}
-        <SpanOlvido>
-          {' '}
-          <Link to='/adminuser'> ¿Se te olvidó tu contraseña? </Link>
-        </SpanOlvido>
+
         <PInscribirse>
           ¿Aún no tienes una cuenta?{' '}
           <SpanInscribirse>
             <Link to='/inscribirse'> Inscribirse</Link>
           </SpanInscribirse>{' '}
         </PInscribirse>
+        <SpanOlvido>
+          {' '}
+          <Link to='/adminuser'> Panel Admin </Link>
+        </SpanOlvido>
       </DivLogin>
     </DivContainerRegistro>
   );

@@ -10,7 +10,7 @@ import axios from 'axios';
 import { urlBD } from '../helpers/url';
 
 const DivMevnPregunta = styled.div`
-  border: solid 1px red;
+  /* border: solid 1px red; */
   width: 411px;
   height: 98vh;
   background-color: black;
@@ -59,12 +59,12 @@ const DivPregunta = styled.div`
   font-weight: 700;
   font-size: 22px;
   line-height: 30px;
-  border: solid 1px red;
+  /* border: solid 1px red; */
   padding: 0 16px;
 `;
 
 const DivOpciones = styled.div`
-  border: solid 1px red;
+  /* border: solid 1px red; */
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -198,7 +198,6 @@ const MevnPregunta = ({
     setContestadas(contestadas + 1);
 
     if (vidasGlobal === 0) {
-      alert('hola');
       setfinal(true);
     }
     if (preguntaSelect === preguntasJS[1].respuesta) {

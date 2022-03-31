@@ -1,7 +1,10 @@
 import axios from 'axios';
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { urlBD } from './helpers/url';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const DivAdminUser = styled.div`
   width: 411px;
@@ -88,7 +91,8 @@ const EliminarUser = styled.button`
   cursor: pointer;
 `;
 
-const AdminUSer = ({ usuariosAdmin }) => {
+const AdminUSer = ({ usuariosAdmin, setusuariosAdmin }) => {
+  const navigate = useNavigate();
   console.log(usuariosAdmin);
 
   const deleteData = (id) => {
@@ -97,13 +101,26 @@ const AdminUSer = ({ usuariosAdmin }) => {
       .delete(urlBD + id)
       .then((resp) => {
         console.log(resp);
+        navigate('/adminuser');
       })
       .catch((err) => console.log(err));
+
+    toast.warn('Usuario Eliminado!', {
+      position: 'bottom-center',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   return (
     <DivAdminUser>
-      <h1>Admin</h1>
+      <Link to='/registro'>
+        <h1>Admin</h1>
+      </Link>
       {usuariosAdmin.map((usuario) => {
         return (
           <DivUser key={usuario.id}>
@@ -130,6 +147,7 @@ const AdminUSer = ({ usuariosAdmin }) => {
               <EliminarUser onClick={() => deleteData(usuario.id)}>
                 ELIMINAR
               </EliminarUser>
+              <ToastContainer />
             </DivEsta>
           </DivUser>
         );

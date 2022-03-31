@@ -114,7 +114,12 @@ function App() {
         />
         <Route
           path='/adminuser'
-          element={<AdminUSer usuariosAdmin={usuariosAdmin} />}
+          element={
+            <AdminUSer
+              usuariosAdmin={usuariosAdmin}
+              setusuariosAdmin={setusuariosAdmin}
+            />
+          }
         />
         <Route path='/inscribirse' element={<Inscribirse />} />
       </Routes>

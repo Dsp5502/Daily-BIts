@@ -1,7 +1,10 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { urlBD } from './helpers/url';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const DivInsc = styled.div`
   width: 411px;
@@ -13,7 +16,7 @@ const DivInsc = styled.div`
   align-items: center;
   color: white;
   margin: 0 auto;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 
   @media (min-width: 623px) {
     width: 100%;
@@ -31,16 +34,70 @@ const TituloNombre = styled.h1`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid red;
+  text-transform: uppercase;
+  /* border: 1px solid red; */
 `;
 
 const FormAdd = styled.form`
   width: 360px;
-  height: 300px;
-  border: 1px solid red;
+  height: 450px;
+  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   margin: 15px;
+`;
+
+const BtnOrden = styled.button`
+  background: #2cb67d;
+  /* border: 1px solid #94a1b2; */
+  box-sizing: border-box;
+  box-shadow: 0px 2px 0px #94a1b2;
+  border-radius: 16px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: white;
+  letter-spacing: 0.005em;
+  margin: 10px 10px;
+  padding: 8px;
+  &:hover {
+    color: #2cb67d;
+    border: 1px solid #2cb67d;
+    box-shadow: 0px 2px 0px #2cb67d;
+    background: #16161a;
+  }
+  &:active {
+    color: #228d61;
+    border: 1px solid #228d61;
+    box-shadow: 0px 2px 0px #228d61;
+  }
+`;
+
+const Inputslabel = styled.label`
+  border: 2px solid #94a1b2;
+  box-shadow: 0px 2px 0px #94a1b2;
+  border-radius: 16px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: white;
+  letter-spacing: 0.005em;
+  margin: 10px 10px;
+  padding: 8px 20px;
+`;
+
+const InputsDatos = styled.input`
+  /* border: 1px solid red; */
+  box-shadow: 0px 2px 0px #94a1b2;
+  border-radius: 16px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: gray;
+  letter-spacing: 0.005em;
+  margin: 10px 10px;
+  padding: 8px 20px;
+  outline: none;
 `;
 
 const Inscribirse = () => {
@@ -61,6 +118,15 @@ const Inscribirse = () => {
     e.preventDefault();
     postData();
     console.log(userNew);
+    toast.success('Ya estas registrado a jugar!', {
+      position: 'bottom-center',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
     setUserNew({
       nombre: '',
       correo: '',
@@ -85,30 +151,36 @@ const Inscribirse = () => {
 
   return (
     <DivInsc>
-      <TituloNombre>Inscribirse</TituloNombre>
+      <TituloNombre>
+        <Link to='/registro'> Inscribirse</Link>
+      </TituloNombre>
       <FormAdd onSubmit={handleSubmit}>
-        <label>Nombre</label>
-        <input
+        <Inputslabel>Nombre</Inputslabel>
+        <InputsDatos
           type='text'
           name='nombre'
           onChange={handleChange}
           value={nombre}
+          placeholder='Ingrese Nombre'
         />
-        <label>Correo</label>
-        <input
+        <Inputslabel>Correo</Inputslabel>
+        <InputsDatos
           type='text'
           name='correo'
           onChange={handleChange}
           value={correo}
+          placeholder='Ingrese Correo'
         />
-        <label>Foto Perfil</label>
-        <input
+        <Inputslabel>Foto Perfil</Inputslabel>
+        <InputsDatos
           type='text'
           name='imagen'
           onChange={handleChange}
           value={imagen}
+          placeholder='Ingrese Url Foto Perfil'
         />
-        <button type='submit'>AGREGAR</button>
+        <BtnOrden type='submit'>AGREGAR</BtnOrden>
+        <ToastContainer />
       </FormAdd>
     </DivInsc>
   );
